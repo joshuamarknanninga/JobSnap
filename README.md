@@ -57,7 +57,13 @@ Each resource supports:
 ## Troubleshooting
 
 
-If you see `MONGO_URI is not defined in environment variables`, make sure `backend/.env` exists (not just `.env.example`) and includes:
+If you do not set `MONGO_URI`, backend dev mode now falls back to:
+
+```bash
+mongodb://127.0.0.1:27017/jobsnap
+```
+
+If you see connection/auth warnings, create `backend/.env` (not just `.env.example`) and set:
 
 ```bash
 MONGO_URI=mongodb://127.0.0.1:27017/jobsnap
