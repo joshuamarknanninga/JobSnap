@@ -53,3 +53,19 @@ Each resource supports:
 - `GET /:id`
 - `PUT /:id`
 - `DELETE /:id`
+
+## Troubleshooting
+
+`npm run dev` now auto-installs workspace dependencies before starting both apps.
+
+If you prefer to install once manually, run:
+
+```bash
+npm install
+```
+
+Then use:
+
+```bash
+npm run dev:workspaces
+```
