@@ -56,6 +56,14 @@ Each resource supports:
 
 ## Troubleshooting
 
+
+If you see `MONGO_URI is not defined in environment variables`, make sure `backend/.env` exists (not just `.env.example`) and includes:
+
+```bash
+MONGO_URI=mongodb://127.0.0.1:27017/jobsnap
+JWT_SECRET=your-secret
+```
+
 `npm run dev` now auto-installs workspace dependencies before starting both apps.
 
 If you prefer to install once manually, run:
