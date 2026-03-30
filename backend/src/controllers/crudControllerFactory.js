@@ -1,3 +1,11 @@
+const toScopedQuery = (req, id) => {
+  const query = { _id: id };
+  if (req.user.business) {
+    query.business = req.user.business;
+  }
+  return query;
+};
+
 export const createCrudHandlers = (Model, populate = '') => {
   const list = async (req, res) => {
     const query = req.user.business ? { business: req.user.business } : {};
@@ -6,7 +14,7 @@ export const createCrudHandlers = (Model, populate = '') => {
   };
 
   const getById = async (req, res) => {
-    const item = await Model.findById(req.params.id).populate(populate);
+    const item = await Model.findOne(toScopedQuery(req, req.params.id)).populate(populate);
     if (!item) {
       return res.status(404).json({ message: 'Item not found' });
     }
@@ -24,7 +32,7 @@ export const createCrudHandlers = (Model, populate = '') => {
   };
 
   const update = async (req, res) => {
-    const item = await Model.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+    const item = await Model.findOneAndUpdate(toScopedQuery(req, req.params.id), req.body, { new: true, runValidators: true });
     if (!item) {
       return res.status(404).json({ message: 'Item not found' });
     }
@@ -33,7 +41,7 @@ export const createCrudHandlers = (Model, populate = '') => {
   };
 
   const remove = async (req, res) => {
-    const item = await Model.findByIdAndDelete(req.params.id);
+    const item = await Model.findOneAndDelete(toScopedQuery(req, req.params.id));
     if (!item) {
       return res.status(404).json({ message: 'Item not found' });
     }
