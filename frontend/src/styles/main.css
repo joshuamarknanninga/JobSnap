@@ -20,15 +20,7 @@ body { margin: 0; }
 .sidebar nav { display: grid; gap: 0.4rem; }
 .sidebar a { color: #d1d5db; text-decoration: none; padding: 0.4rem; border-radius: 8px; }
 .sidebar a.active, .sidebar a:hover { background: #1f2937; color: white; }
-.sidebar button {
-  margin-top: auto;
-  background: #ef4444;
-  color: white;
-  border: none;
-  padding: 0.55rem;
-  border-radius: 8px;
-  cursor: pointer;
-}
+.sidebar .btn { margin-top: auto; }
 .content { flex: 1; padding: 1.5rem; }
 
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; }
@@ -43,13 +35,51 @@ body { margin: 0; }
   box-shadow: 0 1px 6px rgba(0,0,0,0.1);
 }
 .auth-card form { display: grid; gap: 0.75rem; }
-input, button {
+
+input {
   padding: 0.7rem;
   border-radius: 8px;
   border: 1px solid #d1d5db;
   font: inherit;
 }
-button { background: #3b82f6; color: white; border: none; cursor: pointer; }
+
+.btn {
+  appearance: none;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font: inherit;
+  font-weight: 600;
+  gap: 0.35rem;
+  min-height: 42px;
+  padding: 0.7rem 1rem;
+  text-decoration: none;
+  transition: transform 120ms ease, filter 120ms ease, box-shadow 120ms ease;
+}
+
+.btn:hover { filter: brightness(1.06); transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+.btn:disabled { cursor: not-allowed; filter: grayscale(0.15); opacity: 0.8; transform: none; }
+
+.btn-primary {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+}
+
+.btn-ghost {
+  background: white;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.24);
+}
 
 .inline-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.5rem; margin-bottom: 1rem; }
 .list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
@@ -63,7 +93,6 @@ button { background: #3b82f6; color: white; border: none; cursor: pointer; }
 }
 .error { color: #dc2626; }
 .page { padding: 2rem; }
-
 
 .hero {
   min-height: 100vh;
@@ -89,12 +118,4 @@ button { background: #3b82f6; color: white; border: none; cursor: pointer; }
   justify-content: center;
   gap: 0.75rem;
   flex-wrap: wrap;
-}
-
-.hero-actions a {
-  text-decoration: none;
-  background: #2563eb;
-  color: white;
-  padding: 0.7rem 1rem;
-  border-radius: 8px;
 }

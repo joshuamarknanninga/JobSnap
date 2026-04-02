@@ -10,11 +10,11 @@ const HomePage = () => {
       <p>Simple SaaS for solo cleaning businesses. Track customers, estimates, jobs, and invoices in one place.</p>
       <div className="hero-actions">
         {isAuthenticated ? (
-          <Link to="/dashboard">Open dashboard</Link>
+          <Link className="btn btn-primary" to="/dashboard">Open dashboard</Link>
         ) : (
           <>
-            <Link to="/register">Get started</Link>
-            <Link to="/login">Sign in</Link>
+            <Link className="btn btn-primary" to="/register">Get started</Link>
+            <Link className="btn btn-ghost" to="/login">Sign in</Link>
           </>
         )}
       </div>

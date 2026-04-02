@@ -24,7 +24,7 @@ const Layout = ({ children }) => {
             </NavLink>
           ))}
         </nav>
-        <button type="button" onClick={logout}>Log out</button>
+        <button className="btn btn-danger" type="button" onClick={logout}>Log out</button>
       </aside>
       <main className="content">{children}</main>
     </div>
