@@ -93,3 +93,13 @@ Then use:
 ```bash
 npm run dev:workspaces
 ```
+
+If you still see a generic Vite starter page, stop all running Vite processes and restart from this repo root:
+
+```bash
+pkill -f vite
+npm run dev
+```
+
+Then open exactly `http://127.0.0.1:5173/`.
+
