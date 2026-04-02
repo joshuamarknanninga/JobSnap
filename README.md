@@ -69,6 +69,14 @@ Server-side financial rules:
 - Job `total` auto-inherits from linked estimate when missing.
 - Invoice `amount` auto-inherits from linked job when missing.
 
+## Testing
+
+Run backend tests:
+
+```bash
+npm run test --workspace backend
+```
+
 ## Troubleshooting
 
 
