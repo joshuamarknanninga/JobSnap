@@ -30,7 +30,7 @@ const App = () => {
         />
         <Route
           path="/estimates"
-          element={<ResourcePage resource="estimates" title="Estimates" fields={[{ name: 'customer', label: 'Customer ID', required: true }, { name: 'title', label: 'Title', required: true }, { name: 'subtotal', label: 'Subtotal', type: 'number', required: true }, { name: 'total', label: 'Total', type: 'number', required: true }]} />}
+          element={<ResourcePage resource="estimates" title="Estimates" fields={[{ name: 'customer', label: 'Customer ID', required: true }, { name: 'title', label: 'Title', required: true }, { name: 'tax', label: 'Tax', type: 'number' }]} />}
         />
         <Route
           path="/jobs"
@@ -38,7 +38,7 @@ const App = () => {
         />
         <Route
           path="/invoices"
-          element={<ResourcePage resource="invoices" title="Invoices" fields={[{ name: 'customer', label: 'Customer ID', required: true }, { name: 'invoiceNumber', label: 'Invoice #', required: true }, { name: 'dueDate', label: 'Due date', required: true }, { name: 'amount', label: 'Amount', type: 'number', required: true }]} />}
+          element={<ResourcePage resource="invoices" title="Invoices" fields={[{ name: 'customer', label: 'Customer ID', required: true }, { name: 'invoiceNumber', label: 'Invoice #', required: true }, { name: 'dueDate', label: 'Due date', required: true }, { name: 'amount', label: 'Amount', type: 'number' }]} />}
         />
       </Route>
 
