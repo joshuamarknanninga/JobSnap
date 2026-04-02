@@ -54,6 +54,16 @@ Each resource supports:
 - `PUT /:id`
 - `DELETE /:id`
 
+
+### Workflow actions (JWT required)
+- `POST /api/workflows/estimates/:estimateId/create-job` (estimate must be `accepted`)
+- `POST /api/workflows/jobs/:jobId/create-invoice` (job must be `completed`)
+
+Status transitions are guarded:
+- Estimates: `draft -> sent -> accepted/rejected`
+- Jobs: `scheduled -> in_progress -> completed` (or cancel before completion)
+- Invoices: `draft -> sent -> paid/overdue`
+
 ## Troubleshooting
 
 
