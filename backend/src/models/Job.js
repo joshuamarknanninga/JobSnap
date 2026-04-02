@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import Estimate from './Estimate.js';
 
 const jobSchema = new mongoose.Schema(
   {
@@ -15,6 +16,17 @@ const jobSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+jobSchema.pre('validate', async function autoSetTotalFromEstimate() {
+  if (!this.estimate || this.total > 0) {
+    return;
+  }
+
+  const estimate = await Estimate.findById(this.estimate).select('total');
+  if (estimate && Number.isFinite(estimate.total)) {
+    this.total = estimate.total;
+  }
+});
 
 const Job = mongoose.model('Job', jobSchema);
 export default Job;

@@ -64,6 +64,11 @@ Status transitions are guarded:
 - Jobs: `scheduled -> in_progress -> completed` (or cancel before completion)
 - Invoices: `draft -> sent -> paid/overdue`
 
+Server-side financial rules:
+- Estimate `subtotal` and `total` are auto-calculated from `lineItems` when provided.
+- Job `total` auto-inherits from linked estimate when missing.
+- Invoice `amount` auto-inherits from linked job when missing.
+
 ## Troubleshooting
 
 

@@ -51,11 +51,21 @@ export const validateResourcePayload = (resource) => (req, res, next) => {
       if (!normalizeString(req.body.title)) {
         errors.push('Title is required.');
       }
-      if (!ensureNumber(req.body.subtotal)) {
-        errors.push('Subtotal must be a valid number.');
+      const hasLineItems = Array.isArray(req.body.lineItems) && req.body.lineItems.length > 0;
+      if (hasLineItems) {
+        req.body.lineItems.forEach((item, index) => {
+          if (!ensureNumber(item.qty) || Number(item.qty) <= 0) {
+            errors.push(`lineItems[${index}].qty must be greater than 0.`);
+          }
+          if (!ensureNumber(item.rate) || Number(item.rate) < 0) {
+            errors.push(`lineItems[${index}].rate must be 0 or higher.`);
+          }
+        });
       }
-      if (!ensureNumber(req.body.total)) {
-        errors.push('Total must be a valid number.');
+
+      const hasManualTotals = ensureNumber(req.body.subtotal) && ensureNumber(req.body.total);
+      if (!hasLineItems && !hasManualTotals) {
+        errors.push('Provide lineItems or valid subtotal/total values.');
       }
       return errors;
     },
@@ -83,8 +93,9 @@ export const validateResourcePayload = (resource) => (req, res, next) => {
       if (!normalizeString(req.body.dueDate)) {
         errors.push('Due date is required.');
       }
-      if (!ensureNumber(req.body.amount)) {
-        errors.push('Amount must be a valid number.');
+      const hasJob = Boolean(normalizeString(req.body.job));
+      if (!hasJob && !ensureNumber(req.body.amount)) {
+        errors.push('Amount is required when no job is attached.');
       }
       return errors;
     },

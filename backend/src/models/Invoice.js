@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import Job from './Job.js';
 
 const invoiceSchema = new mongoose.Schema(
   {
@@ -14,6 +15,17 @@ const invoiceSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+invoiceSchema.pre('validate', async function autoSetAmountFromJob() {
+  if (!this.job || this.amount > 0) {
+    return;
+  }
+
+  const job = await Job.findById(this.job).select('total');
+  if (job && Number.isFinite(job.total)) {
+    this.amount = job.total;
+  }
+});
 
 const Invoice = mongoose.model('Invoice', invoiceSchema);
 export default Invoice;

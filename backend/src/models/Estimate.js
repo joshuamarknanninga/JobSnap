@@ -21,5 +21,23 @@ const estimateSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+estimateSchema.pre('validate', function autoCalculateTotals(next) {
+  if (!this.lineItems || this.lineItems.length === 0) {
+    return next();
+  }
+
+  const subtotal = this.lineItems.reduce((sum, item) => {
+    const qty = Number(item.qty || 0);
+    const rate = Number(item.rate || 0);
+    return sum + (qty * rate);
+  }, 0);
+
+  this.subtotal = subtotal;
+  this.tax = Number(this.tax || 0);
+  this.total = subtotal + this.tax;
+
+  next();
+});
+
 const Estimate = mongoose.model('Estimate', estimateSchema);
 export default Estimate;
