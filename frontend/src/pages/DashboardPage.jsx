@@ -10,7 +10,7 @@ const isSameDay = (dateA, dateB) => (
 
 const DashboardPage = () => {
   const [metrics, setMetrics] = useState({ customers: 0, estimates: 0, jobs: 0, invoices: 0 });
-  const [actionItems, setActionItems] = useState({ todaysJobs: 0, overdueInvoices: 0, unsentEstimates: 0 });
+  const [actionItems, setActionItems] = useState({ todaysJobs: 0, overdueInvoices: 0, draftEstimates: 0, reminderCount: 0 });
 
   useEffect(() => {
     const load = async () => {
@@ -29,7 +29,8 @@ const DashboardPage = () => {
         }
         return invoice.status === 'overdue' || new Date(invoice.dueDate) < now;
       });
-      const unsentEstimates = estimates.data.filter((estimate) => estimate.status === 'draft');
+      const draftEstimates = estimates.data.filter((estimate) => estimate.status === 'draft');
+      const reminders = jobsToday.length + overdueInvoices.length + draftEstimates.length;
 
       setMetrics({
         customers: customers.data.length,
@@ -41,7 +42,8 @@ const DashboardPage = () => {
       setActionItems({
         todaysJobs: jobsToday.length,
         overdueInvoices: overdueInvoices.length,
-        unsentEstimates: unsentEstimates.length
+        draftEstimates: draftEstimates.length,
+        reminderCount: reminders
       });
     };
 
@@ -51,7 +53,7 @@ const DashboardPage = () => {
   const actionCards = useMemo(() => ([
     { label: "Today's jobs", value: actionItems.todaysJobs, to: '/jobs' },
     { label: 'Overdue invoices', value: actionItems.overdueInvoices, to: '/invoices' },
-    { label: 'Draft estimates', value: actionItems.unsentEstimates, to: '/estimates' }
+    { label: 'Draft estimates', value: actionItems.draftEstimates, to: '/estimates' }
   ]), [actionItems]);
 
   return (
@@ -74,6 +76,16 @@ const DashboardPage = () => {
           </article>
         ))}
       </div>
+
+      <section className="notice-card">
+        <h3>Reminders</h3>
+        <p>You have <strong>{actionItems.reminderCount}</strong> items that need attention today.</p>
+        <div className="notice-actions">
+          <Link className="btn btn-ghost" to="/jobs">View jobs</Link>
+          <Link className="btn btn-ghost" to="/invoices">View invoices</Link>
+          <Link className="btn btn-ghost" to="/estimates">View estimates</Link>
+        </div>
+      </section>
       <p>Track your entire cleaning operation from one mobile-friendly dashboard.</p>
     </section>
   );

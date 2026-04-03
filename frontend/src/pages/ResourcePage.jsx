@@ -95,6 +95,38 @@ const ResourcePage = ({ resource, title, fields }) => {
     }
   };
 
+
+  const copyMessage = async (message) => {
+    try {
+      if (!navigator?.clipboard) {
+        throw new Error('Clipboard unavailable');
+      }
+      await navigator.clipboard.writeText(message);
+      setError('');
+    } catch {
+      setError('Could not copy message to clipboard.');
+    }
+  };
+
+  const communicationButtons = (item) => {
+    if (resource === 'jobs') {
+      const text = `Hi! This is JobSnap. We're on the way for your cleaning appointment at ${item.address || 'your location'} today.`;
+      return <button className="btn btn-ghost" type="button" onClick={() => copyMessage(text)}>Copy on-my-way text</button>;
+    }
+
+    if (resource === 'invoices') {
+      const text = `Friendly reminder: your invoice ${item.invoiceNumber || ''} for $${Number(item.amount || 0).toFixed(2)} is due on ${item.dueDate ? new Date(item.dueDate).toLocaleDateString() : 'the due date'}.`;
+      return <button className="btn btn-ghost" type="button" onClick={() => copyMessage(text)}>Copy reminder</button>;
+    }
+
+    if (resource === 'estimates') {
+      const text = `Your estimate ${item.title || ''} is ready. Reply to approve and we can schedule your cleaning right away.`;
+      return <button className="btn btn-ghost" type="button" onClick={() => copyMessage(text)}>Copy estimate text</button>;
+    }
+
+    return null;
+  };
+
   const actionButton = (item) => {
     if (resource === 'estimates' && item.status === 'accepted') {
       return (
@@ -209,7 +241,7 @@ const ResourcePage = ({ resource, title, fields }) => {
               <strong>{item.name || item.title || item.invoiceNumber || item.address}</strong>
               <span>{item.email || item.status || item.amount || item.phone || '—'}</span>
             </div>
-            {actionButton(item)}
+            <div className="item-actions">{actionButton(item)}{communicationButtons(item)}</div>
           </li>
         ))}
       </ul>

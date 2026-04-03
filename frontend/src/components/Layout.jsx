@@ -6,7 +6,8 @@ const links = [
   { to: '/customers', label: 'Customers' },
   { to: '/estimates', label: 'Estimates' },
   { to: '/jobs', label: 'Jobs' },
-  { to: '/invoices', label: 'Invoices' }
+  { to: '/invoices', label: 'Invoices' },
+  { to: '/reports', label: 'Reports' }
 ];
 
 const Layout = ({ children }) => {

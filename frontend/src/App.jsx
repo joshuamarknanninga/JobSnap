@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ResourcePage from './pages/ResourcePage';
+import ReportsPage from './pages/ReportsPage';
 
 const ProtectedLayout = () => (
   <ProtectedRoute>
@@ -40,6 +41,7 @@ const App = () => {
           path="/invoices"
           element={<ResourcePage resource="invoices" title="Invoices" fields={[{ name: 'customer', label: 'Customer ID', required: true }, { name: 'invoiceNumber', label: 'Invoice #', required: true }, { name: 'dueDate', label: 'Due date', required: true }, { name: 'amount', label: 'Amount', type: 'number' }]} />}
         />
+        <Route path="/reports" element={<ReportsPage />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />
