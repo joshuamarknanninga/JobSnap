@@ -33,6 +33,53 @@ This repository now includes a full MERN scaffold with:
 - API: `http://localhost:5001/api`
 - Frontend: `http://localhost:5173`
 
+## How-to manual (operator guide)
+
+Use this section as your daily runbook for JobSnap.
+
+### 1) First-time setup
+1. Open `http://localhost:5173`.
+2. Click **Get started** and create your account.
+3. Use your business name so branding appears in the sidebar.
+
+### 2) Add your first customer
+1. Go to **Customers**.
+2. Fill in customer name, contact details, and service address.
+3. Click **Add Customer**.
+
+### 3) Create and send an estimate
+1. Go to **Estimates**.
+2. Enter customer ID, title, optional tax, and line items.
+3. Confirm subtotal/total preview, then click **Add Estimate**.
+4. Change estimate status from `draft` to `sent` (and later `accepted` when approved).
+
+### 4) Convert estimate to a scheduled job
+1. On an **accepted** estimate, click **Create job**.
+2. Enter scheduled date and service address.
+3. Open **Jobs** to verify it appears as `scheduled`.
+
+### 5) Run the job and invoice it
+1. Update job status: `scheduled` -> `in_progress` -> `completed`.
+2. On a completed job, click **Create invoice**.
+3. Enter a due date and save.
+4. Move invoice status through `draft` -> `sent` -> `paid` (or `overdue`).
+
+### 6) Use reminders and reports daily
+- **Dashboard** shows items needing attention (today's jobs, overdue invoices, draft estimates).
+- **Reports** shows conversion rate, paid revenue, completed jobs, and monthly paid totals.
+
+### 7) Customer communication shortcuts
+- From estimates, jobs, and invoices, use copy buttons to quickly send:
+  - estimate approval text,
+  - "on my way" text,
+  - invoice reminder text.
+
+### 8) Recommended daily routine (5-10 minutes)
+1. Check dashboard reminders.
+2. Move any stalled statuses forward.
+3. Send reminders for overdue invoices.
+4. Review reports weekly for trends.
+
 ## API endpoints
 
 ### Auth
